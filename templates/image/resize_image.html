@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Resize Image - UniTools{% endblock %}
+
+{% block content %}
+<div class="tool-container">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">📏</div>
+        <h2 style="margin: 0; font-size: 2rem;">Resize Image</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Change the dimensions (Pixels) of your image.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" action="/resize-image" onsubmit="showLoader()">
+        
+        <label class="upload-box" style="display: block;">
+            <input type="file" name="image_file" id="imageInput" accept=".jpg, .jpeg, .png" required hidden onchange="updateFileInfo()">
+            <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">🖼️</div>
+            <p style="font-size: 1.1rem; font-weight: 600;">Click to Upload Image</p>
+            <p id="fileName" style="margin-top: 15px; color: var(--primary); font-weight: bold; display: none;"></p>
+        </label>
+
+        <div class="input-row" style="margin-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="input-group">
+                <label style="color: var(--text-muted); font-size: 0.9rem;">Width (px)</label>
+                <input type="number" name="width" placeholder="e.g. 800" required>
+            </div>
+            <div class="input-group">
+                <label style="color: var(--text-muted); font-size: 0.9rem;">Height (px)</label>
+                <input type="number" name="height" placeholder="e.g. 600" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn primary" style="width: 100%; margin-top: 30px;">Resize & Download</button>
+    </form>
+</div>
+
+<script>
+    function updateFileInfo() {
+        const input = document.getElementById('imageInput');
+        const nameText = document.getElementById('fileName');
+        if (input.files.length > 0) {
+            nameText.textContent = "Selected: " + input.files[0].name;
+            nameText.style.display = "block";
+        }
+    }
+    function showLoader() { document.getElementById('loader-overlay').style.display = 'flex'; }
+</script>
+{% endblock %}

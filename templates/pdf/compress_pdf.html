@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Compress PDF - UniTools{% endblock %}
+
+{% block content %}
+<div class="tool-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}" style="padding: 15px; margin-bottom: 25px; border-radius: 12px; background: rgba(99, 102, 241, 0.1); border: 1px solid var(--primary); color: var(--text-main); text-align: center; animation: fadeIn 0.5s;">
+             {% if category == 'success' %} ✅ {% else %} ℹ️ {% endif %} {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">📉</div>
+        <h2 style="margin: 0; font-size: 2rem;">Smart Compression</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Shrink your PDF to a target file size.</p>
+    </div>
+
+    <div id="instantStatus" style="display:none; padding: 15px; margin-bottom: 20px; border-radius: 12px; background: rgba(59, 130, 246, 0.1); border: 1px solid var(--primary); color: var(--text-main); text-align: center;">
+    ⏳ <span id="statusText">Analyzing PDF structure...</span>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" action="/compress-pdf" onsubmit="showLoader()">
+        
+        <label class="upload-box" style="display: block; cursor: pointer;">
+            <input type="file" name="pdf_file" id="pdfInput" accept=".pdf" required hidden onchange="updateFileInfo()">
+            <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">☁️</div>
+            <p style="font-size: 1.1rem; font-weight: 600;">Upload PDF to Shrink</p>
+            <p id="fileName" style="margin-top: 15px; color: var(--primary); font-weight: bold; display: none;"></p>
+        </label>
+
+        <div style="margin-top: 25px;">
+            <label style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; display: block;">Target File Size (MB)</label>
+            <input type="number" step="0.1" name="target_mb" placeholder="e.g. 2.0" 
+                   style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-main);">
+            <small style="color: var(--text-muted); display: block; margin-top: 8px; line-height: 1.4;">
+                We use iterative garbage collection and stream deflation to reach your target.
+            </small>
+        </div>
+
+        <div id="sizeReport" style="display:none; margin-top: 15px; padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.05); font-size: 0.85rem; color: var(--text-muted);">
+    📊 Ready to process. Target: <span id="targetDisplay">2.0</span> MB
+    </div>
+
+        <button type="submit" class="btn primary" style="width: 100%; margin-top: 30px; font-weight: bold;">
+            Optimize & Download
+        </button>
+    </form>
+</div>
+
+<script>
+    function updateFileInfo() {
+        const input = document.getElementById('pdfInput');
+        const nameText = document.getElementById('fileName');
+    
+        if (input.files.length > 0) {
+            const file = input.files[0];
+            const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2); // Convert bytes to MB
+        
+            nameText.innerHTML = `
+                <span style="display:block; margin-bottom:5px;">Selected: ${file.name}</span>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Original Size: ${fileSizeMB} MB</span>
+            `;
+            nameText.style.display = "block";
+        }
+    }
+
+    function showLoader() {
+        // 1. Show the top status bar instantly
+        const statusBox = document.getElementById('instantStatus');
+        const statusText = document.getElementById('statusText');
+        statusBox.style.display = 'block';
+    
+        // 2. Change text after a few seconds to simulate "deep" analysis
+        setTimeout(() => { statusText.textContent = "Applying stream deflation..."; }, 2000);
+        setTimeout(() => { statusText.textContent = "Removing redundant metadata..."; }, 4000);
+
+        // 3. Show the full-page loader overlay
+        const loader = document.getElementById('loader-overlay');
+        if(loader) loader.style.display = 'flex'; 
+}
+</script>
+
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .alert-info { border-color: #3b82f6 !important; }
+    .alert-success { border-color: #10b981 !important; }
+</style>
+{% endblock %}

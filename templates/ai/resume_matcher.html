@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}AI Resume Matcher - UniTools{% endblock %}
+
+{% block content %}
+<div class="tool-container" style="max-width: 900px;">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🤖</div>
+        <h2 style="margin: 0; font-size: 2rem;">AI Resume Matcher</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Compare your resume against a Job Description to see your match score.</p>
+    </div>
+
+    <form method="POST">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div class="input-group">
+                <label style="color: var(--text-muted); margin-bottom: 8px; display: block;">Job Description</label>
+                <textarea name="job_description" rows="10" style="width:100%; background:var(--input-bg); color:var(--text-main); border:1px solid var(--border-color); border-radius:8px; padding:10px;" placeholder="Paste the job requirements here..." required></textarea>
+            </div>
+            <div class="input-group">
+                <label style="color: var(--text-muted); margin-bottom: 8px; display: block;">Resume Text</label>
+                <textarea name="resume_text" rows="10" style="width:100%; background:var(--input-bg); color:var(--text-main); border:1px solid var(--border-color); border-radius:8px; padding:10px;" placeholder="Paste your resume content here..." required></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="btn primary" style="width: 100%;">Calculate Match Score</button>
+    </form>
+
+    {% if score is not none %}
+    <div style="margin-top: 30px; text-align: center; padding: 20px; background: rgba(99, 102, 241, 0.1); border: 1px solid var(--primary); border-radius: 12px;">
+        <h3 style="margin: 0;">Match Score: <span style="color: var(--primary); font-size: 2rem;">{{ score }}%</span></h3>
+        <p style="margin-top: 10px; color: var(--text-muted);">
+            {% if score > 70 %}
+                🔥 Great match! Your resume aligns well with this role.
+            {% elif score > 40 %}
+                ⚡ Decent match, but consider adding more specific keywords from the job description.
+            {% else %}
+                ⚠️ Low match. Try to tailor your skills and experience more closely.
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

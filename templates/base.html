@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}UniTools{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+<a href="/" class="logo">
+    <span class="logo-icon">UT</span>
+    <span class="logo-text">UniTools</span>
+
+<div class="nav-center">
+    <a href="/">Home</a> <span class="nav-sep">|</span>
+    <a href="/pdf-tools">PDF Tools</a> <span class="nav-sep">|</span>
+    <a href="/image-tools">Image Tools</a> <span class="nav-sep">|</span>
+    <a href="/chart-tools">Chart Tools</a> <span class="nav-sep">|</span>
+    <a href="/ai-tools">AI Tools</a>
+</div>
+
+    <button id="theme-toggle" class="theme-toggle">🌙</button>
+</nav>
+
+<!-- Loader -->
+<div id="loader-overlay" class="loader-overlay">
+    <div class="loader"></div>
+    <p>Processing, please wait...</p>
+</div>
+
+{% block content %}{% endblock %}
+
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+</body>
+</html>
+

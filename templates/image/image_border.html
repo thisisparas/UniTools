@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Add Image Border - UniTools{% endblock %}
+
+{% block content %}
+<div class="tool-container">
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🖼️</div>
+        <h2 style="margin: 0; font-size: 2rem;">Add Image Border</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Add a clean border to your JPG or PNG image.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" action="/image-border" onsubmit="showLoader()">
+        
+        <label class="upload-box" id="drop-area">
+            <input type="file" name="image_file" id="imageInput" accept=".jpg, .jpeg, .png" required hidden onchange="updateFileInfo()">
+            <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">☁️</div>
+            <p style="font-size: 1.1rem; font-weight: 600;">Click to Upload Image</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">JPG or PNG supported</p>
+            
+            <p id="fileName" style="margin-top: 15px; color: var(--primary); font-weight: bold; display: none;"></p>
+        </label>
+
+        <div class="input-row" style="margin-top: 25px;">
+            
+            <div class="input-group">
+                <label style="font-weight: 500; color: var(--text-muted); margin-bottom: 8px; display: block;">Border Size (px)</label>
+                <input 
+                    type="number" 
+                    name="border_size" 
+                    value="20" 
+                    min="1"
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-main); font-size: 1rem;"
+                >
+            </div>
+
+            <div class="input-group">
+                <label style="font-weight: 500; color: var(--text-muted); margin-bottom: 8px; display: block;">Border Color</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input 
+                        type="color" 
+                        name="border_color" 
+                        value="#ffffff"
+                        style="height: 45px; width: 100%; border: none; background: transparent; cursor: pointer;"
+                    >
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <button type="submit" class="btn primary" style="width: 100%; padding: 15px; font-size: 1.1rem;">
+            Add Border & Download
+        </button>
+    </form>
+</div>
+
+<style>
+    .input-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    @media (max-width: 600px) {
+        .input-row { grid-template-columns: 1fr; }
+    }
+</style>
+
+<script>
+    function updateFileInfo() {
+        const input = document.getElementById('imageInput');
+        const nameText = document.getElementById('fileName');
+
+        if (input.files.length > 0) {
+            nameText.textContent = "Selected: " + input.files[0].name;
+            nameText.style.display = "block";
+        }
+    }
+
+    function showLoader() {
+        document.getElementById('loader-overlay').style.display = 'flex';
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Compress Image - UniTools{% endblock %}
+
+{% block content %}
+<div class="tool-container">
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🗜️</div>
+        <h2 style="margin: 0; font-size: 2rem;">Compress Image</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Reduce image file size while maintaining quality.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" action="/compress-image" onsubmit="showLoader()">
+        
+        <label class="upload-box" id="drop-area">
+            <input type="file" name="image_file" id="imageInput" accept=".jpg, .jpeg, .png" required hidden onchange="updateFileInfo()">
+            <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">🖼️</div>
+            <p style="font-size: 1.1rem; font-weight: 600;">Click to Upload Image</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">JPG or PNG supported</p>
+            
+            <p id="fileName" style="margin-top: 15px; color: var(--primary); font-weight: bold; display: none;"></p>
+        </label>
+
+        <div style="margin-top: 25px;">
+            <label style="font-weight: 500; color: var(--text-muted); margin-bottom: 8px; display: block;">Compression Level</label>
+            <select name="quality" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-main); font-size: 1rem;">
+                <option value="medium" selected>Medium (Recommended) - Good Balance</option>
+                <option value="low">Low - Smallest Size (Lower Quality)</option>
+                <option value="high">High - Best Quality (Larger Size)</option>
+            </select>
+        </div>
+
+        <br>
+
+        <button type="submit" class="btn primary" style="width: 100%; padding: 15px; font-size: 1.1rem;">
+            Compress Image
+        </button>
+    </form>
+</div>
+
+<script>
+    function updateFileInfo() {
+        const input = document.getElementById('imageInput');
+        const nameText = document.getElementById('fileName');
+
+        if (input.files.length > 0) {
+            nameText.textContent = "Selected: " + input.files[0].name;
+            nameText.style.display = "block";
+        }
+    }
+
+    function showLoader() {
+        document.getElementById('loader-overlay').style.display = 'flex';
+    }
+</script>
+{% endblock %}

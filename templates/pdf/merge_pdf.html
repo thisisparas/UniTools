@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Merge PDF - UniTools{% endblock %}
+
+{% block content %}
+<div class="tool-container">
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">📚</div>
+        <h2 style="margin: 0; font-size: 2rem;">Merge PDFs</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Combine multiple PDF files into one single document.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" action="/merge-pdf" onsubmit="showLoader()">
+        
+        <label class="upload-box" id="drop-area">
+            <input type="file" name="pdf_files" id="pdfInput" accept=".pdf" multiple required hidden onchange="updateFileInfo()">
+            <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">☁️</div>
+            <p style="font-size: 1.1rem; font-weight: 600;">Click to Upload PDFs</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Select multiple files at once</p>
+            
+            <div id="fileList" style="margin-top: 15px; text-align: left; display: none;">
+                <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-bottom: 10px;">Selected Files:</p>
+                <ul id="fileNames" style="color: var(--primary); font-weight: 500; font-size: 0.95rem; list-style: none; padding: 0; text-align: center;"></ul>
+            </div>
+        </label>
+
+        <br>
+
+        <button type="submit" class="btn primary" style="width: 100%; padding: 15px; font-size: 1.1rem;">
+            Merge & Download
+        </button>
+    </form>
+</div>
+
+<script>
+    function updateFileInfo() {
+        const input = document.getElementById('pdfInput');
+        const fileList = document.getElementById('fileList');
+        const list = document.getElementById('fileNames');
+        
+        list.innerHTML = ''; // Clear previous list
+
+        if (input.files.length > 0) {
+            fileList.style.display = "block";
+            for (let i = 0; i < input.files.length; i++) {
+                let li = document.createElement('li');
+                li.textContent = "📄 " + input.files[i].name;
+                li.style.marginBottom = "5px";
+                list.appendChild(li);
+            }
+        }
+    }
+
+    function showLoader() {
+        document.getElementById('loader-overlay').style.display = 'flex';
+    }
+</script>
+{% endblock %}

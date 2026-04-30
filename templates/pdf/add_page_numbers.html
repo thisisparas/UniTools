@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Add Page Numbers - UniTools{% endblock %}
+
+{% block content %}
+<div class="tool-container">
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🔢</div>
+        <h2 style="margin: 0; font-size: 2rem;">Add Page Numbers</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Insert page numbers into your document.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" action="/add-page-numbers" onsubmit="showLoader()">
+
+        <label class="upload-box" id="drop-area">
+            <input type="file" name="pdf_file" id="fileInput" accept=".pdf" required hidden onchange="updateFileName()">
+            <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">📄</div>
+            <p style="font-size: 1.1rem; font-weight: 600;">Click to Upload PDF</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">or drag and drop here</p>
+            <p id="fileName" style="margin-top: 15px; color: var(--primary); font-weight: bold;"></p>
+        </label>
+
+        <div class="input-row">
+            <div class="input-group">
+                <label>Position</label>
+                <select name="position">
+                    <option value="bottom-center">Bottom Center</option>
+                    <option value="bottom-right">Bottom Right</option>
+                    <option value="bottom-left">Bottom Left</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Number Style</label>
+                <select name="style">
+                    <option value="decimal">1, 2, 3</option>
+                    <option value="roman-lower">i, ii, iii</option>
+                    <option value="roman-upper">I, II, III</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="margin-top: 25px; padding: 20px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid var(--border-color);">
+            <h4 style="margin-bottom: 15px; color: var(--text-main);">Optional: Different Style for Specific Pages</h4>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label>From Page</label>
+                    <input type="number" name="range_start" min="1" placeholder="Start">
+                </div>
+                <div class="input-group">
+                    <label>To Page</label>
+                    <input type="number" name="range_end" min="1" placeholder="End">
+                </div>
+                <div class="input-group">
+                    <label>Range Style</label>
+                    <select name="range_style">
+                        <option value="roman-lower">i, ii, iii</option>
+                        <option value="roman-upper">I, II, III</option>
+                        <option value="decimal">1, 2, 3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <button type="submit" class="btn primary" style="width: 100%; padding: 15px; font-size: 1.1rem;">
+            Add Numbers & Download
+        </button>
+    </form>
+
+</div>
+
+<style>
+    .input-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    /* Make the range section 3 columns */
+    .input-row:has(input[name="range_start"]) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+        .input-row, .input-row:has(input[name="range_start"]) {
+            grid-template-columns: 1fr; /* Stack vertically on mobile */
+        }
+    }
+</style>
+
+<script>
+    function updateFileName() {
+        const input = document.getElementById('fileInput');
+        const fileNameDisplay = document.getElementById('fileName');
+        if (input.files.length > 0) {
+            fileNameDisplay.textContent = "Selected: " + input.files[0].name;
+            fileNameDisplay.style.display = "block";
+        }
+    }
+
+    function showLoader() {
+        document.getElementById('loader-overlay').style.display = 'flex';
+    }
+</script>
+{% endblock %}

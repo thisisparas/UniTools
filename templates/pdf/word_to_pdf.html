@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Word to PDF - UniTools{% endblock %}
+
+{% block content %}
+<div class="tool-container">
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">📄</div>
+        <h2 style="margin: 0; font-size: 2rem;">Word to PDF</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Convert Word documents (DOCX) to PDF format.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" action="/word-to-pdf" onsubmit="showLoader()">
+        
+        <label class="upload-box" id="drop-area">
+            <input type="file" name="word_file" id="wordInput" accept=".docx, .doc" required hidden onchange="updateFileInfo()">
+            <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">📝</div>
+            <p style="font-size: 1.1rem; font-weight: 600;">Click to Upload Word File</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">or drag and drop here</p>
+            
+            <p id="fileName" style="margin-top: 15px; color: var(--primary); font-weight: bold; display: none;"></p>
+        </label>
+
+        <br>
+
+        <button type="submit" class="btn primary" style="width: 100%; padding: 15px; font-size: 1.1rem;">
+            Convert to PDF
+        </button>
+    </form>
+</div>
+
+<script>
+    function updateFileInfo() {
+        const input = document.getElementById('wordInput');
+        const nameText = document.getElementById('fileName');
+
+        if (input.files.length > 0) {
+            nameText.textContent = "Selected: " + input.files[0].name;
+            nameText.style.display = "block";
+        }
+    }
+
+    function showLoader() {
+        document.getElementById('loader-overlay').style.display = 'flex';
+    }
+</script>
+{% endblock %}

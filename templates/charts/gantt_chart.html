@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Gantt Chart Generator - UniTools{% endblock %}
+
+{% block content %}
+<div class="tool-container" style="max-width: 800px; margin: 50px auto; padding: 40px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">📅</div>
+        <h2 style="margin: 0; font-size: 2rem;">Gantt Chart Generator</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Enter your project tasks and timelines below.</p>
+    </div>
+
+    <form method="POST" action="/gantt-chart">
+        <div id="task-inputs">
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Task Name</label>
+                    <input type="text" name="task[]" placeholder="e.g., Design Phase" required>
+                </div>
+                <div class="input-group">
+                    <label>Start Date</label>
+                    <input type="date" name="start[]" required>
+                </div>
+                <div class="input-group">
+                    <label>End Date</label>
+                    <input type="date" name="end[]" required>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; margin-top: 20px; justify-content: center;">
+            <button type="button" class="btn secondary" onclick="addTask()">+ Add Another Task</button>
+            <button type="button" class="btn danger" onclick="removeTask()">- Remove Last</button>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #444; margin: 30px 0;">
+
+        <button type="submit" class="btn primary" style="width: 100%; padding: 15px; font-size: 1.1rem;">
+            Generate & Download Chart
+        </button>
+    </form>
+</div>
+
+<style>
+    /* Row layout for larger screens */
+    .input-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr; /* Task name gets more space */
+        gap: 15px;
+        margin-bottom: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .input-group label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-left: 2px;
+    }
+
+    .input-group input {
+        padding: 10px;
+        border: 1px solid #444;
+        background: #222;
+        color: #fff;
+        border-radius: 6px;
+        font-size: 0.95rem;
+    }
+    
+    .input-group input:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: transform 0.1s, opacity 0.2s;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn.primary { background: linear-gradient(135deg, #007bff, #0056b3); color: white; }
+    .btn.secondary { background-color: #495057; color: white; }
+    .btn.danger { background-color: #dc3545; color: white; }
+
+    /* Mobile Responsive */
+    @media (max-width: 600px) {
+        .input-row {
+            grid-template-columns: 1fr; /* Stack vertically on phones */
+            gap: 10px;
+        }
+    }
+</style>
+
+<script>
+    function addTask() {
+        const container = document.getElementById('task-inputs');
+        const div = document.createElement('div');
+        div.className = 'input-row';
+        div.innerHTML = `
+            <div class="input-group">
+                <label>Task Name</label>
+                <input type="text" name="task[]" placeholder="Task Name" required>
+            </div>
+            <div class="input-group">
+                <label>Start Date</label>
+                <input type="date" name="start[]" required>
+            </div>
+            <div class="input-group">
+                <label>End Date</label>
+                <input type="date" name="end[]" required>
+            </div>
+        `;
+        container.appendChild(div);
+    }
+
+    function removeTask() {
+        const container = document.getElementById('task-inputs');
+        if (container.children.length > 1) { // Keep at least 1 row
+            container.removeChild(container.lastElementChild);
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Chart Tools - UniTools{% endblock %}
+
+{% block content %}
+
+<section class="category-hero">
+    <div class="hero-shape triangle"></div>
+    <div class="hero-shape square"></div>
+    
+    <h1 class="category-title">Chart Tools</h1>
+    <p class="category-subtitle">
+        Create visual charts for projects and data.
+    </p>
+
+    <div class="search-wrapper">
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input 
+                type="text" 
+                id="toolSearch" 
+                placeholder="Search chart tools..." 
+                onkeyup="filterChartTools()"
+            >
+        </div>
+    </div>
+</section>
+
+<main class="tools" id="chartTools">
+
+    <a href="/gantt-chart" class="card" data-tool="gantt project timeline schedule">
+        <div class="icon">📅</div> <h3>Gantt Chart</h3>
+        <p>Create project timeline charts easily.</p>
+    </a>
+
+    <a href="/pie-chart" class="card" data-tool="pie graph data visualization">
+        <div class="icon">🥧</div> <h3>Pie Chart</h3>
+        <p>Visualize percentage-based data.</p>
+    </a>
+
+</main>
+
+<script>
+function filterChartTools() {
+    const input = document.getElementById("toolSearch").value.toLowerCase();
+    const cards = document.querySelectorAll("#chartTools .card");
+
+    cards.forEach(card => {
+        const keywords = card.getAttribute("data-tool");
+        if (keywords.includes(input)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+</script>
+
+{% endblock %}

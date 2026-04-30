@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}PDF Tools – UniTools{% endblock %}
+
+{% block content %}
+
+<!-- HERO HEADER -->
+<section class="category-hero">
+    <!-- DECORATIVE SHAPES -->
+<div class="hero-shape triangle"></div>
+<div class="hero-shape square"></div>
+<div class="hero-shape dot"></div>
+
+    <h1 class="category-title">PDF Tools</h1>
+    <p class="category-subtitle">Tools to manage and edit PDF files</p>
+
+    <!-- OLD SEARCH BAR (UNCHANGED) -->
+    <div class="search-wrapper">
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input
+                type="text"
+                id="pdfSearch"
+                placeholder="Search PDF tools..."
+                onkeyup="filterPdfTools()"
+            />
+        </div>
+    </div>
+</section>
+
+<!-- PDF TOOLS GRID -->
+<main class="tools" id="pdfToolsContainer">
+
+    <a href="/pdf-to-word" class="card" data-tool="pdf to word convert document">
+        <div class="icon">📄</div>
+        <h3>PDF to Word</h3>
+        <p>Convert PDF to editable Word files.</p>
+    </a>
+
+    <a href="/word-to-pdf" class="card" data-tool="word to pdf convert document">
+        <div class="icon">📄</div>
+        <h3>Word to PDF</h3>
+        <p>Convert Word documents to PDF.</p>
+    </a>
+
+    <a href="/pdf-to-jpg" class="card" data-tool="pdf to jpg image export">
+        <div class="icon">🖼️</div>
+        <h3>PDF to JPG</h3>
+        <p>Export PDF pages as images.</p>
+    </a>
+
+    <a href="/jpg-to-pdf" class="card" data-tool="jpg to pdf image convert">
+        <div class="icon">🖼️</div>
+        <h3>JPG to PDF</h3>
+        <p>Create PDFs from images.</p>
+    </a>
+
+    <a href="/compress-pdf" class="card" data-tool="compress pdf reduce size">
+        <div class="icon">🗜️</div>
+        <h3>Compress PDF</h3>
+        <p>Reduce PDF size.</p>
+    </a>
+
+    <a href="/delete-pdf-pages" class="card" data-tool="delete pdf pages remove">
+        <div class="icon">🗑️</div>
+        <h3>Delete PDF Pages</h3>
+        <p>Remove unwanted pages.</p>
+    </a>
+
+    <a href="/merge-pdf" class="card" data-tool="merge pdf combine join stitch">
+        <div class="icon">📚</div>
+        <h3>Merge PDF</h3>
+        <p>Combine multiple PDFs into one.</p>
+    </a>
+
+    <a href="/add-page-numbers" class="card" data-tool="add page numbers pdf numbering">
+        <div class="icon">🔢</div>
+        <h3>Add Page Numbers</h3>
+        <p>Insert page numbers into PDF files.</p>
+    </a>
+
+    <a href="/protect-pdf" class="card" data-tool="protect pdf password secure">
+        <div class="icon">🔐</div>
+        <h3>Protect PDF</h3>
+        <p>Password-protect PDFs.</p>
+    </a>
+
+    <a href="/unlock-pdf" class="card" data-tool="unlock pdf remove password">
+        <div class="icon">🔓</div>
+        <h3>Unlock PDF</h3>
+        <p>Remove PDF passwords.</p>
+    </a>
+
+</main>
+
+<!-- SEARCH SCRIPT -->
+<script>
+function filterPdfTools() {
+    const input = document.getElementById("pdfSearch").value.toLowerCase();
+    const cards = document.querySelectorAll("#pdfToolsContainer .card");
+
+    cards.forEach(card => {
+        const keywords = card.getAttribute("data-tool");
+        card.style.display = keywords.includes(input) ? "block" : "none";
+    });
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}AI Tools - UniTools{% endblock %}
+
+{% block content %}
+
+<section class="category-hero">
+    <div class="hero-shape triangle"></div>
+    <div class="hero-shape square"></div>
+    <div class="hero-shape dot"></div>
+
+    <h1 class="category-title">AI Utility Tools</h1>
+    <p class="category-subtitle">Smart tools for academic and professional success.</p>
+
+    <div class="search-wrapper">
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input
+                type="text"
+                id="aiSearch"
+                placeholder="Search AI tools..."
+                onkeyup="filterAiTools()"
+            />
+        </div>
+    </div>
+</section>
+
+<main class="tools" id="aiToolsContainer">
+
+    <a href="/ai-resume-matcher" class="card" data-tool="ai resume matcher placement scanner">
+        <div class="icon">📄🤖</div>
+        <h3>AI Resume Matcher</h3>
+        <p>Scan your resume against JDs for placement prep.</p>
+    </a>
+
+</main>
+
+<script>
+function filterAiTools() {
+    const input = document.getElementById("aiSearch").value.toLowerCase();
+    const cards = document.querySelectorAll("#aiToolsContainer .card");
+
+    cards.forEach(card => {
+        const keywords = card.getAttribute("data-tool");
+        card.style.display = keywords.includes(input) ? "block" : "none";
+    });
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Pie Chart Generator - UniTools{% endblock %}
+
+{% block content %}
+<div class="tool-container" style="max-width: 700px; margin: 50px auto; padding: 30px; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+    <h2 style="text-align: center; margin-bottom: 20px;">🥧 Pie Chart Generator</h2>
+    <p style="text-align: center; margin-bottom: 30px; color: var(--text-muted);">Enter labels and values to generate your chart.</p>
+
+    <form method="POST" action="/pie-chart">
+        <div id="data-inputs">
+            <div class="input-row">
+                <input type="text" name="labels[]" placeholder="Label (e.g., Rent)" required>
+                <input type="number" name="values[]" placeholder="Value (e.g., 500)" required step="any">
+            </div>
+            <div class="input-row">
+                <input type="text" name="labels[]" placeholder="Label (e.g., Food)" required>
+                <input type="number" name="values[]" placeholder="Value (e.g., 300)" required step="any">
+            </div>
+        </div>
+
+        <div style="margin-top: 15px; display: flex; gap: 10px;">
+            <button type="button" class="btn secondary" onclick="addRow()">+ Add Slice</button>
+            <button type="button" class="btn danger" onclick="removeRow()">- Remove</button>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #444; margin: 25px 0;">
+
+        <button type="submit" class="btn primary" style="width: 100%;">Generate & Download Chart</button>
+    </form>
+</div>
+
+<style>
+    .input-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .input-row input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #555;
+        background: #222;
+        color: #fff;
+        border-radius: 5px;
+    }
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    .btn.primary { background-color: #007bff; color: white; }
+    .btn.primary:hover { background-color: #0056b3; }
+    
+    .btn.secondary { background-color: #6c757d; color: white; }
+    .btn.secondary:hover { background-color: #545b62; }
+
+    .btn.danger { background-color: #dc3545; color: white; }
+    .btn.danger:hover { background-color: #bd2130; }
+</style>
+
+<script>
+    function addRow() {
+        const container = document.getElementById('data-inputs');
+        const div = document.createElement('div');
+        div.className = 'input-row';
+        div.innerHTML = `
+            <input type="text" name="labels[]" placeholder="Label" required>
+            <input type="number" name="values[]" placeholder="Value" required step="any">
+        `;
+        container.appendChild(div);
+    }
+
+    function removeRow() {
+        const container = document.getElementById('data-inputs');
+        if (container.children.length > 2) { // Keep at least 2 rows
+            container.removeChild(container.lastElementChild);
+        }
+    }
+</script>
+{% endblock %}

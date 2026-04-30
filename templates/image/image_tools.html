@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Image Tools – UniTools{% endblock %}
+
+{% block content %}
+
+<!-- HERO HEADER -->
+<section class="category-hero">
+
+    <!-- Floating shapes -->
+    <div class="hero-shape triangle"></div>
+    <div class="hero-shape square"></div>
+    <div class="hero-shape dot"></div>
+
+    <h1 class="category-title">Image Tools</h1>
+    <p class="category-subtitle">
+        Edit, compress, and enhance your images easily.
+    </p>
+
+    <!-- Search Bar -->
+    <div class="search-wrapper">
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input
+                type="text"
+                id="imageSearch"
+                placeholder="Search image tools..."
+                onkeyup="filterImageTools()"
+            />
+        </div>
+    </div>
+
+</section>
+
+<!-- IMAGE TOOLS GRID -->
+<main class="tools" id="imageToolsContainer">
+
+    <a href="/image-border" class="card"
+       data-tool="border image frame photo edit">
+        <div class="icon">🖼️</div>
+        <h3>Add Border</h3>
+        <p>Add a clean border to your images.</p>
+    </a>
+
+    <a href="/compress-image" class="card"
+       data-tool="compress image reduce size optimize photo">
+        <div class="icon">🗜️</div>
+        <h3>Compress Image</h3>
+        <p>Reduce image file size while keeping quality.</p>
+    </a>
+
+    <a href="/resize-image" class="card" data-tool="resize image dimensions pixels">
+    <div class="icon">📏</div>
+    <h3>Resize Image</h3>
+    <p>Change image width and height pixels.</p>
+    </a>
+
+    <a href="/png-to-jpg" class="card">
+    <div class="icon">🖼️</div>
+    <h3>PNG to JPG</h3>
+    <p>Convert PNG images into JPG format.</p>
+    </a>
+
+    <a href="/jpg-to-png" class="card">
+    <div class="icon">🖼️</div>
+    <h3>JPG/JPEG to PNG</h3>
+    <p>Convert JPG/JPEG images into PNG format.</p>
+    </a>
+
+
+
+</main>
+
+<!-- Search Script -->
+<script>
+function filterImageTools() {
+    const input = document.getElementById("imageSearch").value.toLowerCase();
+    const cards = document.querySelectorAll("#imageToolsContainer .card");
+
+    cards.forEach(card => {
+        const keywords = card.getAttribute("data-tool");
+        card.style.display = keywords.includes(input) ? "block" : "none";
+    });
+}
+</script>
+
+{% endblock %}

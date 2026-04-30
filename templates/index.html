@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}UniTools – All in One Utility{% endblock %}
+
+{% block content %}
+
+<section class="category-hero">
+    <div class="hero-shape triangle"></div>
+    <div class="hero-shape square"></div>
+    <div class="hero-shape dot"></div>
+
+    <h1 class="category-title">All-in-One Utility Tools</h1>
+    <p class="category-subtitle">
+        Tools to work with PDFs, images, AI, and more — all in one place.
+    </p>
+
+    <div class="search-wrapper">
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input
+                type="text"
+                id="toolSearch"
+                placeholder="Search tools..."
+                onkeyup="filterHomeTools()"
+            />
+        </div>
+    </div>
+</section>
+
+<main class="tools" id="homeTools">
+
+    <a href="/pdf-tools" class="card" data-tool="pdf tools convert compress edit">
+        <div class="icon">📄</div>
+        <h3>PDF Tools</h3>
+        <p>Convert, compress, edit, and manage PDF files.</p>
+    </a>
+
+    <a href="/image-tools" class="card" data-tool="image tools edit enhance resize photo">
+        <div class="icon">🖼️</div>
+        <h3>Image Tools</h3>
+        <p>Edit, resize, and enhance images easily.</p>
+    </a>
+
+    <a href="/chart-tools" class="card" data-tool="chart gantt pie graph">
+        <div class="icon">📊</div>
+        <h3>Chart Tools</h3>
+        <p>Create Gantt charts and Pie charts easily.</p>
+    </a>
+
+    <a href="/ai-tools" class="card" data-tool="ai tools resume matcher matcher recruiter">
+        <div class="icon">🤖</div>
+        <h3>AI Tools</h3>
+        <p>Analyze resumes and automate text tasks.</p>
+    </a>
+
+</main>
+
+<footer class="footer">
+    <p>Mini Project | 2nd Semester | Paras Chauhan</p>
+</footer>
+
+<script>
+function filterHomeTools() {
+    const input = document.getElementById("toolSearch").value.toLowerCase();
+    const cards = document.querySelectorAll("#homeTools .card");
+
+    cards.forEach(card => {
+        const keywords = card.getAttribute("data-tool");
+        card.style.display = keywords.includes(input) ? "block" : "none";
+    });
+}
+</script>
+
+{% endblock %}
