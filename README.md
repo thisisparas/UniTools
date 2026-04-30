@@ -13,4 +13,4 @@ pip install -r requirements.txt
 python app.py
 
 ## Author
-Paras Chauhan | MCA 2nd Semester | Uttaranchal University
+Paras Chauhan | MCA | Uttaranchal University
