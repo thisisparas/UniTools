@@ -97,12 +97,4 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("load", () => {
     const loader = document.getElementById("loader-overlay");
     if (loader) loader.style.display = "none";
-});
-
-const menu = document.querySelector('#mobile-menu');
-const menuLinks = document.querySelector('#nav-menu');
-
-menu.addEventListener('click', function() {
-    menu.classList.toggle('is-active');
-    menuLinks.classList.toggle('active');
-});         
+});      
