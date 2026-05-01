@@ -347,24 +347,89 @@ input:focus, select:focus { border-color: var(--primary); }
 }
 
 @media (max-width: 768px) {
-    .menu-toggle {
-        display: flex; /* Show icon on Mobile */
+    /* 1. Ensure the navbar doesn't block clicks */
+    .navbar {
+        position: relative;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
     }
 
+    /* 2. Style the dropdown menu correctly */
     .nav-menu {
-        display: none; /* Hide links on Mobile initially */
+        display: none; 
         flex-direction: column;
         width: 100%;
         position: absolute;
-        top: 60px;
+        top: 100%; /* Sits exactly below the navbar */
         left: 0;
-        background-color: #1a1a2e; /* Match your theme */
-        text-align: center;
+        background-color: #1a1a2e; /* Match your dark theme */
         padding: 20px 0;
+        z-index: 999;
+        border-bottom: 2px solid #3d3d5c;
     }
 
-    /* This class will be added by JavaScript when clicked */
+    /* Show menu when active */
     .nav-menu.active {
         display: flex;
+    }
+
+    /* 3. Improve link visibility on Android */
+    .nav-menu a {
+        color: #ffffff; /* Make links pure white so they stand out */
+        padding: 15px;
+        font-size: 1.1rem;
+        text-decoration: none;
+        border-bottom: 1px solid #2a2a40;
+    }
+
+    /* 4. Fix the Hero section spacing */
+    .hero {
+        margin-top: 20px;
+        padding: 0 15px;
+    }
+
+    /* 5. Ensure the Hamburger icon is visible */
+    .menu-toggle .bar {
+        background-color: #ffffff;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        display: flex;
+        flex-direction: row; /* Keep elements in a line */
+        justify-content: space-between; /* Pushes Logo left, Toggle right */
+        align-items: center;
+        padding: 10px 15px;
+        position: relative;
+    }
+
+    /* 1. Logo stays left */
+    .logo {
+        order: 1; 
+    }
+
+    /* 2. Hamburger stays in the middle or next to logo */
+    .menu-toggle {
+        order: 2;
+        margin-left: auto;
+        margin-right: 20px; /* Space between hamburger and theme toggle */
+    }
+
+    /* 3. Theme toggle moves to the far right */
+    .theme-toggle {
+        order: 3;
+        position: static; /* Remove any absolute positioning */
+    }
+
+    /* 4. Ensure the menu still drops down correctly */
+    .nav-menu {
+        top: 100%;
+        left: 0;
+        width: 100%;
+        /* Ensure it's hidden until 'active' is toggled */
     }
 }
