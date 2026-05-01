@@ -345,3 +345,50 @@ input:focus, select:focus { border-color: var(--primary); }
     margin: 3px 0;
     transition: 0.3s;
 }
+
+/* --- Desktop Styles (Standard) --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background-color: #1a1a2e;
+    flex-wrap: nowrap;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+}
+
+/* --- Simple Mobile Styles (No Hamburger) --- */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Stack logo above links */
+        padding: 15px 10px;
+        height: auto;
+    }
+
+    .nav-menu {
+        flex-wrap: wrap; /* Let links wrap to next line if screen is tiny */
+        justify-content: center;
+        margin: 15px 0;
+        gap: 10px;
+    }
+
+    .nav-menu a {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 5px;
+    }
+
+    .theme-toggle {
+        margin-top: 5px;
+    }
+}
