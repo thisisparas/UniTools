@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const body = document.body;
 
     if (toggleBtn) {
-        if (localStorage.getItem("theme") === "dark") {
+        if (localStorage.getItem("theme") !== "light") {
             body.classList.add("dark");
             toggleBtn.textContent = "☀️";
         }
