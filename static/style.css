@@ -292,3 +292,42 @@ input:focus, select:focus { border-color: var(--primary); }
     opacity: 0.5;             /* Makes it slightly transparent */
     font-weight: 300;         /* Keeps it thin and elegant */
 }
+
+/* 📱 MOBILE RESPONSIVE STYLES */
+@media (max-width: 768px) {
+    /* 1. Fix the Navbar */
+    .navbar {
+        flex-direction: column; /* Stack logo and links vertically */
+        padding: 10px;
+        height: auto; /* Let it grow with content */
+    }
+
+    .nav-center {
+        display: flex;
+        flex-wrap: wrap; /* Let links wrap to a second line if needed */
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .nav-sep {
+        display: none; /* Hide the vertical pipes | on mobile to save space */
+    }
+
+    /* 2. Fix the Hero Section */
+    .hero h1 {
+        font-size: 2rem; /* Shrink the big title so it fits */
+        padding: 0 10px;
+    }
+
+    /* 3. Fix the Search Bar */
+    .search-container {
+        width: 90%; /* Make search bar full width on phone */
+    }
+
+    /* 4. Fix Tool Cards */
+    .tool-card {
+        margin: 10px;
+        width: calc(100% - 20px); /* Make cards stack vertically */
+    }
+}
