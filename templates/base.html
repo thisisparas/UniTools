@@ -28,20 +28,29 @@
         <a href="/" class="logo">
             <span class="logo-icon">UT</span>
             <span class="logo-text">UniTools</span>
-        </a> <!-- Correctly closed logo tag -->
+        </a>
 
-        <div class="nav-center">
-            <a href="/">Home</a> <span class="nav-sep">|</span>
-            <a href="/pdf-tools">PDF Tools</a> <span class="nav-sep">|</span>
-            <a href="/image-tools">Image Tools</a> <span class="nav-sep">|</span>
-            <a href="/chart-tools">Chart Tools</a> <span class="nav-sep">|</span>
+        <!-- Hamburger Menu Toggle (Mobile Only) -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="nav-menu" id="nav-menu">
+            <a href="/">Home</a>
+            <a href="/pdf-tools">PDF Tools</a>
+            <a href="/image-tools">Image Tools</a>
+            <a href="/chart-tools">Chart Tools</a>
             <a href="/ai-tools">AI Tools</a>
         </div>
 
+        <!-- Theme Toggle Button -->
         <button id="theme-toggle" class="theme-toggle">🌙</button>
     </nav>
 
-    <!-- Loader -->
+    <!-- Loader Overlay -->
     <div id="loader-overlay" class="loader-overlay">
         <div class="loader"></div>
         <p>Processing, please wait...</p>
@@ -52,7 +61,7 @@
         {% block content %}{% endblock %}
     </div>
 
-    <!-- JS - Ensure file is named theme.js inside the static folder -->
+    <!-- JavaScript - Ensure theme.js is in the static folder -->
     <script src="{{ url_for('static', filename='theme.js') }}"></script>
 </body>
 </html>

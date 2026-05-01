@@ -331,3 +331,40 @@ input:focus, select:focus { border-color: var(--primary); }
         width: calc(100% - 20px); /* Make cards stack vertically */
     }
 }
+/* --- HAMBURGER STYLES --- */
+.menu-toggle {
+    display: none; /* Hidden by default on Desktop */
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    height: 3px;
+    width: 25px;
+    background-color: white; /* Match your dark theme */
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex; /* Show icon on Mobile */
+    }
+
+    .nav-menu {
+        display: none; /* Hide links on Mobile initially */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #1a1a2e; /* Match your theme */
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    /* This class will be added by JavaScript when clicked */
+    .nav-menu.active {
+        display: flex;
+    }
+}
