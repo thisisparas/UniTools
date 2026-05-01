@@ -674,4 +674,4 @@ if __name__ == "__main__":
     cleanup_thread = threading.Thread(target=cleanup_uploads, daemon=True)
     cleanup_thread.start()
 
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
