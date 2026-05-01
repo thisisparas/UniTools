@@ -6,8 +6,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     
+    <!-- CSS - Ensure file is named style.css inside the static folder -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     
     <!-- Google Analytics -->
@@ -21,32 +23,36 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-<a href="/" class="logo">
-    <span class="logo-icon">UT</span>
-    <span class="logo-text">UniTools</span>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">UT</span>
+            <span class="logo-text">UniTools</span>
+        </a> <!-- Correctly closed logo tag -->
 
-<div class="nav-center">
-    <a href="/">Home</a> <span class="nav-sep">|</span>
-    <a href="/pdf-tools">PDF Tools</a> <span class="nav-sep">|</span>
-    <a href="/image-tools">Image Tools</a> <span class="nav-sep">|</span>
-    <a href="/chart-tools">Chart Tools</a> <span class="nav-sep">|</span>
-    <a href="/ai-tools">AI Tools</a>
-</div>
+        <div class="nav-center">
+            <a href="/">Home</a> <span class="nav-sep">|</span>
+            <a href="/pdf-tools">PDF Tools</a> <span class="nav-sep">|</span>
+            <a href="/image-tools">Image Tools</a> <span class="nav-sep">|</span>
+            <a href="/chart-tools">Chart Tools</a> <span class="nav-sep">|</span>
+            <a href="/ai-tools">AI Tools</a>
+        </div>
 
-    <button id="theme-toggle" class="theme-toggle">🌙</button>
-</nav>
+        <button id="theme-toggle" class="theme-toggle">🌙</button>
+    </nav>
 
-<!-- Loader -->
-<div id="loader-overlay" class="loader-overlay">
-    <div class="loader"></div>
-    <p>Processing, please wait...</p>
-</div>
+    <!-- Loader -->
+    <div id="loader-overlay" class="loader-overlay">
+        <div class="loader"></div>
+        <p>Processing, please wait...</p>
+    </div>
 
-{% block content %}{% endblock %}
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        {% block content %}{% endblock %}
+    </div>
 
-<script src="{{ url_for('static', filename='theme.js') }}"></script>
+    <!-- JS - Ensure file is named theme.js inside the static folder -->
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
 </body>
 </html>
-
